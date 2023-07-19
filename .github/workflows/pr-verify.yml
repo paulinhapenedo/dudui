@@ -1,0 +1,43 @@
+name: PR Verify
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  check:
+    outputs:
+      run_verify: true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - run: |
+          git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
+
+  verify:
+    runs-on: ubuntu-latest
+    if: needs.check.outputs.run_verify == 'true'
+    needs: check
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up node and npm cache
+        uses: actions/setup-node@v3
+        with:
+          node: 'node'
+          cache: 'npm'
+      - name: Install dependencies
+        run: |
+          npm install
+      - name: Run lint
+        run: |
+          npm run lint
+      - name: Check TS
+        run: |
+          npm run tsc
+      # - name: Run Tests
+      #   run: |
+      #     npm test:ci
