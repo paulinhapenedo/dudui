@@ -1,8 +1,8 @@
 import { View, Text, Button } from 'react-native';
 
-import { Props } from '~/navigation/types';
+import { ScreenProps } from '~/types/navigation';
 
-export function DetailsScreen({ navigation }: Props) {
+export function DetailsScreen({ navigation }: ScreenProps) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Details Screen</Text>
