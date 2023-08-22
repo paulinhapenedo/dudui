@@ -9,9 +9,13 @@
     "web": "expo start --web",
     "lint": "echo \"🟡 Running eslint check\" && eslint . --ext .ts,.tsx,.js --cache",
     "tsc": "echo \"🟡 Running TypeScript check\" && tsc",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test:dev": "jest --watch --coverage=false --changedSince=origin/main",
+    "test:updateSnapshots": "jest -u --coverage=false",
+    "test:ci": "jest --ci"
   },
   "dependencies": {
+    "@react-navigation/bottom-tabs": "^6.5.8",
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/native-stack": "^6.9.13",
     "eslint": "^8.45.0",
@@ -20,18 +24,41 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "expo": "~48.0.18",
     "expo-status-bar": "~1.4.4",
+    "jest": "^29.2.1",
+    "jest-expo": "^49.0.0",
     "prettier": "^3.0.0",
     "react": "18.2.0",
     "react-native": "0.71.8",
     "react-native-safe-area-context": "4.5.0",
-    "react-native-screens": "~3.20.0"
+    "react-native-screens": "~3.20.0",
+    "react-native-gesture-handler": "~2.9.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
+    "@testing-library/react-native": "^12.2.2",
+    "@types/jest": "^29.5.3",
     "@types/react": "~18.0.14",
     "eslint-plugin-prettier": "^5.0.0",
     "husky": "^8.0.0",
     "typescript": "^4.9.4"
   },
-  "private": true
+  "private": true,
+  "jest": {
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)"
+    ],
+    "setupFiles": [
+      "<rootDir>/src/test-utils/jest-setup.ts",
+      "./node_modules/react-native-gesture-handler/jestSetup.js"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/*.{js,jsx,ts,tsx}",
+      "!**/coverage/**",
+      "!**/node_modules/**",
+      "!**/babel.config.js",
+      "!**/jest.setup.js"
+    ]
+  }
 }
