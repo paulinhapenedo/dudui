@@ -27,7 +27,6 @@ jobs:
       - name: Set up node and npm cache
         uses: actions/setup-node@v3
         with:
-          node: 'node'
           cache: 'npm'
       - name: Install dependencies
         run: |
@@ -35,9 +34,9 @@ jobs:
       - name: Run lint
         run: |
           npm run lint
-      - name: Check TS
+      - name: Check TypeScript
         run: |
           npm run tsc
-      # - name: Run Tests
-      #   run: |
-      #     npm test:ci
+      - name: Run Tests
+        run: |
+          npm run test:ci
