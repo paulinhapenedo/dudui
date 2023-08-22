@@ -1,8 +1,8 @@
 import { View, Text, Button } from 'react-native';
 
-import { Props } from '~/navigation/types';
+import { ScreenProps } from '~/types/navigation';
 
-export function HomeScreen({ navigation }: Props) {
+export function HomeScreen({ navigation }: ScreenProps) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Home Screen</Text>
